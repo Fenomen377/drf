@@ -17,9 +17,7 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 
-from women.views import *
-
-
+from women.views import WomenAPIList, WomenAPIUpdate, WomenAPIDestroy
 
 urlpatterns = [
     path('admin/', admin.site.urls),

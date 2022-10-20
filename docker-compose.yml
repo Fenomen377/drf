@@ -1,0 +1,38 @@
+version: "3.9"
+services:
+  db :
+    image: postgres
+    volumes:
+      - data:/varlib/postgresql/data
+    env_file:
+      - ./.env
+
+    networks:
+      - drfsite
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+#    command: gunicorn djangoflowers.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - .:/drf
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    networks:
+      - drfsite
+#  nginx:
+#    build: ./nginx
+#    ports:
+#      - "80:80"
+#    depends_on:
+#      - web
+#      - db
+#    networks:
+#      - engineer-network
+
+networks:
+  drfsite:
+    driver: bridge
+volumes:
+  data:
